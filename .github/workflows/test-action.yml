@@ -1,0 +1,15 @@
+name: test-cosign
+on: [push, workflow_dispatch]
+
+jobs:
+  test_sigstore_commit_verify:
+    runs-on: ubuntu-latest
+    name: Install Cosign and test presence in path
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+      - name: Verify commit is in tlog
+        uses: mbestavros/sigstore-git-verifier@main
