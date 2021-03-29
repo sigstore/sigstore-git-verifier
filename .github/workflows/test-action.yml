@@ -1,8 +1,8 @@
 name: sigstore-git-verifier
-on: [push, workflow_dispatch]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  sigstore_git_verify:
+  verify-commit:
     runs-on: ubuntu-latest
     name: Verify latest commit is in tlog
     steps:
