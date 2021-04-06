@@ -2,6 +2,8 @@
 
 A Github Action to verify that new commits are present in the sigstore transparency log.
 
+This is currently a proof-of-concept, and **not** ready for production use! Play around with it at your leisure, but be ready for things to break.
+
 ## How it works
 
 This is effectively the verification stage of [Git commit signing with `cosign`](https://github.com/sigstore/cosign/blob/main/FUN.md) contained in a Github Action.
@@ -16,7 +18,13 @@ For the pre-push hook to work, you'll need to do the following:
 - Generate a Cosign keypair and store it in your repository's root directory
 - Export your keypair's password as the `COSIGN_PASSWORD` environment variable with `export COSIGN_PASSWORD=***`
 
-To install the pre-push hook, move [`hooks/pre-push`](/hooks/pre-push) to your `.git/hooks` directory. Once moved, it will run before every push.
+To install the pre-push hook, move [`hooks/pre-push`](/hooks/pre-push) to your `.git/hooks` directory:
+
+```bash
+mv hooks/pre-push .git/hooks/
+```
+
+Once moved, it will run before every push.
 
 ### Verifying commits on Github
 
@@ -46,7 +54,7 @@ jobs:
         with:
           cosign-release: 'v0.1.0'
       - name: Verify latest commit is in tlog
-        uses: mbestavros/sigstore-git-verifier@main
+        uses: sigstore/sigstore-git-verifier@main
 ```
 
 A working example is present on this repository: see [the test workflow.](/.github/workflows/test-action.yml)

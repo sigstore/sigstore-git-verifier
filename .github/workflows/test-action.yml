@@ -11,8 +11,8 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.16
-      - uses: sigstore/cosign-installer@main
+      - uses: sigstore/cosign-installer@v0.1.0
         with:
-          cosign-release: 'v0.1.0'
+          cosign-release: 'v0.2.0'
       - name: Verify latest commit is in tlog
-        uses: mbestavros/sigstore-git-verifier@main
+        uses: sigstore/sigstore-git-verifier@main
