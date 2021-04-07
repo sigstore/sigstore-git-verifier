@@ -13,7 +13,7 @@ runs:
     - run: |
         if [[ $GITHUB_EVENT_NAME == "pull_request" ]]
         then
-          commit=$(cat $GITHUB_EVENT_PATH | jq -r .pull_request.base.sha)
+          commit=$(cat $GITHUB_EVENT_PATH | jq -r .pull_request.head.sha)
         else
           commit=$GITHUB_SHA
         fi
