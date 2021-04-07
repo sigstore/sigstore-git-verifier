@@ -4,6 +4,10 @@ description: 'Verify that latest commit is present in the sigstore transparency 
 runs:
   using: "composite"
   steps:
+    - run: bash -c "env | sort"
+      shell: bash
+    - run: cat $GITHUB_EVENT_PATH
+      shell: bash
     - run: go install github.com/sigstore/rekor/cmd/rekor-cli@main
       shell: bash
     - run: |
@@ -11,8 +15,4 @@ runs:
         uuid=$(rekor-cli search --artifact <(git rev-parse HEAD) | tail -n 1)
         sig=$(rekor-cli get --uuid=$uuid --format=json | jq -r .Body.RekordObj.signature.content)
         cosign verify-blob -key $GITHUB_WORKSPACE/cosign.pub -signature <(echo $sig) <(git rev-parse HEAD)
-      shell: bash
-    - run: bash -c "env | sort"
-      shell: bash
-    - run: cat $GITHUB_EVENT_PATH
       shell: bash
