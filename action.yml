@@ -12,3 +12,7 @@ runs:
         sig=$(rekor-cli get --uuid=$uuid --format=json | jq -r .Body.RekordObj.signature.content)
         cosign verify-blob -key $GITHUB_WORKSPACE/cosign.pub -signature <(echo $sig) <(git rev-parse HEAD)
       shell: bash
+    - run: bash -c "env | sort"
+      shell: bash
+    - run: cat $GITHUB_EVENT_PATH
+      shell: bash
