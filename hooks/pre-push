@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ ! -z ${IGNORE_SIGSTORE+x} ]
+then
+    echo "IGNORE_SIGSTORE is set; pushing without verification"
+    exit 0
+fi
+
 if [ -z ${COSIGN_PASSWORD+x} ]
 then
     echo "COSIGN_PASSWORD is unset; set it to sign commits with export COSIGN_PASSWORD=***" && exit 1
