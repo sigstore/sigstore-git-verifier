@@ -1,4 +1,5 @@
-# action.yml
+# SPDX-License-Identifier: Apache-2.0
+
 name: sigstore-git-verifier
 description: 'Verify that latest commit is present in the sigstore transparency log'
 runs:
